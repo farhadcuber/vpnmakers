@@ -6,7 +6,7 @@ source $MY_PATH/.config
 ## Return PID of running openconnect
 get_PID () {
     
-    PID=$(ps -a | grep openconnect | cut -d' ' -f2)
+    PID=$(ps -a | grep openconnect | cut -d' ' -f1)
     
     if [ -z "$PID" ]; then
         PID=0
