@@ -2,8 +2,9 @@
 
 source ./.config
 
+## Return PID of running openconnect
 get_PID () {
-    #ps -a | grep openconnect | cut -d' ' -f2
+    
     PID=$(ps -a | grep openconnect | cut -d' ' -f2)
     
     if [ -z "$PID" ]; then
@@ -11,6 +12,7 @@ get_PID () {
     fi
 }
 
+## Print the status of VPN
 print_status () {
 
     get_PID
@@ -22,6 +24,7 @@ print_status () {
     fi
 }
 
+## Check arguments.
 if [ $# -gt 1 ]; then
     echo "wrong usage."
     echo "sudo ./vpnmakers.sh    --> for connection"
@@ -29,6 +32,7 @@ if [ $# -gt 1 ]; then
     echo "sudo ./vpnmakers.sh -s --> to see status"
 fi
 
+## Connection
 if [ $# -eq 0 ]; then
     get_PID
 
@@ -37,6 +41,7 @@ if [ $# -eq 0 ]; then
         --passwd-on-stdin $SERVER &> /dev/zero  
     fi
 
+## Disconnection
 elif [ $1 == '-d' ]; then
     get_PID
 
@@ -45,5 +50,6 @@ elif [ $1 == '-d' ]; then
     fi
 fi
 
+## Finally Show Status
 sleep 1
 print_status
