@@ -2,10 +2,19 @@
 
 source ./.config
 
-check_connection () {
+get_PID () {
+    PID=$(ps -a | grep openconnect | cut -d' ' -f2)
+}
 
-    PID=$(ps -a | grep openconnect | cut -d' ' -f1)
-    return $PID
+print_status () {
+
+    get_PID
+    echo $PID
+    if [[ $PID -eq '' ]]; then
+        echo 'disconnected'
+    else
+        echo 'connected'
+    fi
 }
 
 if [ $# -gt 1 ]; then
@@ -16,19 +25,21 @@ if [ $# -gt 1 ]; then
 fi
 
 if [ $# -eq 0 ]; then
-    check_connection
+    get_PID
+
     if [[ $? -eq '' ]]; then
         { echo $PASSWORD; echo 'yes';} | sudo openconnect --user=$USERNAME -b \
-        --passwd-on-stdin $SERVER
+        --passwd-on-stdin $SERVER &> /dev/zero  
     fi
 
-fi
+elif [ $1 == '-d' ]; then
+    get_PID
 
-if [ $1 == '-d' ]; then
-    check_connection
-    PID=$?
-    if [[ $PID -ne '' ]]; then
+    if [ -n '$PID' ]; then
+        echo 'came here'
+        echo $PID
         sudo kill $PID
     fi
-    echo 'disconnected'
 fi
+
+print_status
