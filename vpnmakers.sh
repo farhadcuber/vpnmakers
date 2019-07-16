@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ./.config
+MY_PATH="`dirname \"$0\"`"
+source $MY_PATH/.config
 
 ## Return PID of running openconnect
 get_PID () {
