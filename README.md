@@ -11,6 +11,6 @@ It is based on openconnect and runs in background.
 3. Like .config_example file fill your user & pass & server.
 
 ## Usage:
-For a new connection:   ```sudo ./vpnmakers.sh```
-To disconnect:          ```sudo ./vpnmakers.sh -d```
-For status:             ```sudo ./vpnmakers.sh -s```
+For a new connection:   ```sudo ./vpnmakers.sh```<br />
+To disconnect:          ```sudo ./vpnmakers.sh -d```<br />
+For status:             ```sudo ./vpnmakers.sh -s```<br />
