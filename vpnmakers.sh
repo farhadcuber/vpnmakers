@@ -6,7 +6,7 @@ source $MY_PATH/.config
 ## Return PID of running openconnect
 get_PID () {
     
-    PID=$(ps -a | grep openconnect | cut -d' ' -f1)
+    PID=$(ps -a | grep openconnect | awk '{$1=$1};1' | cut -d' ' -f1)
     
     if [ -z "$PID" ]; then
         PID=0
@@ -17,7 +17,7 @@ get_PID () {
 print_status () {
 
     get_PID
-    
+
     if [ "$PID" == 0 ]; then
         echo 'disconnected'
     else
